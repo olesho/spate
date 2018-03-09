@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Feed App</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="one-half column" style="margin-top: 25%">
+        <h4>Feed App</h4>
+        <p>Please fill form below to configure your feed:</p>
+
+		<form id="request_config_form">
+		  <div class="row">
+        <div class="six columns">
+          <label for="request_url">URL</label>
+          <input class="u-full-width" type="text" name="url" placeholder="http://" id="request_url">
+        </div>
+		  </div>
+		  <div class="row">
+		    <div class="six columns block-request-method">
+		      <label for="request_method">Method</label>
+		      <select class="u-full-width" id="request_method">
+    				<option value="GET">GET</option>
+    				<option value="POST">POST</option>
+    				<option value="PUT">PUT</option>
+		      </select>
+		    </div>
+        <div class="six columns block-request-interval">
+          <label for="request_interval">Interval</label>
+          <input class="u-full-width" type="text" name="interval" placeholder="interval between requests" id="request_interval" step="100">
+        </div>
+		  </div>
+      <div class="block-request-headers">
+  		  <label for="request_headers">Headers</label>
+  		  <textarea class="u-full-width" placeholder="HTTP request headers" id="request_headers"></textarea>
+		  </div>
+      <div class="block-request-body">
+        <label for="request_body">Body</label>
+  		  <textarea class="u-full-width" placeholder="HTTP request body" id="request_body"></textarea>
+      </div>
+		</form>
+
+    <div class="row">
+      <div class="six columns block-request-method">
+        <input class="button-primary" type="submit" value="Configure" id="request_submit">
+      </div>
+      <div class="six columns block-request-method">
+        <input class="button-primary" type="submit" value="Unsubscribe" id="request_subscription_unsubscribe">
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+
+  <script src="js/modernizr-3.5.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>
+  <!-- <script src="js/notify.js"></script> -->
+
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyClb6srM86EeEvNUfjLHs23M4j-e7dr3jE",
+      authDomain: "feedman-2eb48.firebaseapp.com",
+      databaseURL: "https://feedman-2eb48.firebaseio.com",
+      projectId: "feedman-2eb48",
+      storageBucket: "feedman-2eb48.appspot.com",
+      messagingSenderId: "749004268607"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="js/firebase/firebase.js"></script>
+  
+  <script src="js/main.js"></script>
+
+  <!--
+  <script src="js/ws/ws.js"></script>
+  <script src="js/mozilla/mozilla.js"></script>
+  -->
+
+
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
