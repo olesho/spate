@@ -3,6 +3,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -22,14 +24,21 @@ type StorageConfig struct {
 	DBName   string
 }
 
-func NewStorage(conf *StorageConfig) (*Storage, error) {
-	db, err := gorm.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8&parseTime=True&loc=Local", conf.User, conf.Password, conf.Host, conf.Port, conf.DBName))
-	if err != nil {
-		return nil, err
+func NewStorage(conf *StorageConfig) *Storage {
+	var err error
+	var db *gorm.DB
+	for {
+		db, err = gorm.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8&parseTime=True&loc=Local", conf.User, conf.Password, conf.Host, conf.Port, conf.DBName))
+		if err == nil {
+			break
+		}
+		log.Printf("Failed to connect to DB: %v", err)
+		log.Println("Will retry in 5 seconds")
+		time.Sleep(time.Second * 5)
 	}
 	db.AutoMigrate(&pb.Endpoint{})
 	db.Model(&pb.Endpoint{}).ModifyColumn("body", "text").ModifyColumn("header", "text").AddUniqueIndex("idx_url_user", "url", "user")
-	return &Storage{db}, nil
+	return &Storage{db}
 }
 
 func (s *Storage) Create(e *pb.Endpoint) (*pb.Endpoint, error) {

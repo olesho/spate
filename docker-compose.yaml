@@ -17,11 +17,13 @@ services:
       - MICRO_REGISTRY
       - DB_HOST
       - DB_PORT
-      - DB_USER
-      - DB_PASSWORD
-      - DB_NAME
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    depends_on:
+      - mysql
     links:
-      - db
+      - mysql
   processors:
     build: ./processors
     environment:
@@ -31,15 +33,27 @@ services:
     environment:
       - MICRO_REGISTRY
       - GCM_API_KEY
-  db:
-    image: mariadb
-    volumes:
-      - ./mysql:/var/lib/mysql
-    restart: always
+  mysql:
+    image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD
-      - MYSQL_USER
-      - MYSQL_PASSWORD
       - MYSQL_DATABASE
-#    ports:
-#      - 3306:3306
+#      - MYSQL_USER
+#      - MYSQL_PASSWORD
+#    volumes:
+#      - "mysql_data:/var/lib/mysql" # data container
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    ports:
+      - 8181:80
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: kotyczky
+      PMA_HOST: mysql
+
+#volumes:
+#  mysql_data:
+#    driver: local
