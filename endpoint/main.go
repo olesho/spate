@@ -13,8 +13,10 @@ import (
 func main() {
 
 	storage, err := NewStorage(&StorageConfig{
+		Host:     os.Getenv("DB_HOST"),
+		Port:     os.Getenv("DB_PORT"),
 		User:     os.Getenv("DB_USER"),
-		Password: os.Getenv("DB_PASSWORD"),
+		Password: os.Getenv("MYSQL_ROOT_PASSWORD"),
 		DBName:   os.Getenv("DB_NAME"),
 	})
 	if err != nil {

@@ -1,0 +1,40 @@
+version: "3"
+services:
+  cli:
+    build: ./cli
+    environment:
+      - MICRO_REGISTRY
+      - HOST
+      - PORT
+      - SECURE
+      - FB_CALLBACK_URL
+      - FB_ID
+      - FB_SECRET
+      - DOMAIN
+  endpoint:
+    build: ./endpoint
+    environment:
+      - MICRO_REGISTRY
+      - DB_HOST
+      - DB_PORT
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
+    links:
+      - db
+  processors:
+    build: ./processors
+    environment:
+      - MICRO_REGISTRY
+  subscribe:
+    build: ./subscribe
+    environment:
+      - MICRO_REGISTRY
+      - GCM_API_KEY
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD
+    ports:
+      - 3306:3306

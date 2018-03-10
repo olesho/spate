@@ -15,13 +15,15 @@ type Storage struct {
 }
 
 type StorageConfig struct {
+	Host     string
+	Port     string
 	User     string
 	Password string
 	DBName   string
 }
 
 func NewStorage(conf *StorageConfig) (*Storage, error) {
-	db, err := gorm.Open("mysql", fmt.Sprintf("%v:%v@/%v?charset=utf8&parseTime=True&loc=Local", conf.User, conf.Password, conf.DBName))
+	db, err := gorm.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8&parseTime=True&loc=Local", conf.User, conf.Password, conf.Host, conf.Port, conf.DBName))
 	if err != nil {
 		return nil, err
 	}
