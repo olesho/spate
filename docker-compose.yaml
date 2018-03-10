@@ -33,8 +33,13 @@ services:
       - GCM_API_KEY
   db:
     image: mariadb
+    volumes:
+      - ./mysql:/var/lib/mysql
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD
-    ports:
-      - 3306:3306
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+#    ports:
+#      - 3306:3306

@@ -15,9 +15,9 @@ func main() {
 	storage, err := NewStorage(&StorageConfig{
 		Host:     os.Getenv("DB_HOST"),
 		Port:     os.Getenv("DB_PORT"),
-		User:     os.Getenv("DB_USER"),
-		Password: os.Getenv("MYSQL_ROOT_PASSWORD"),
-		DBName:   os.Getenv("DB_NAME"),
+		User:     os.Getenv("MYSQL_USER"),
+		Password: os.Getenv("MYSQL_PASSWORD"),
+		DBName:   os.Getenv("MYSQL_DATABASE"),
 	})
 	if err != nil {
 		log.Fatalf("failed to open storage: %v", err)
