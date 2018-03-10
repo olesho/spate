@@ -11,6 +11,8 @@ services:
       - FB_ID
       - FB_SECRET
       - DOMAIN
+    ports:
+      - 3000:3000
   endpoint:
     build: ./endpoint
     environment:
@@ -38,8 +40,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE
-#      - MYSQL_USER
-#      - MYSQL_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
 #    volumes:
 #      - "mysql_data:/var/lib/mysql" # data container
     restart: always
