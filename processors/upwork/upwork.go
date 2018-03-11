@@ -8,7 +8,7 @@ import (
 
 	strip "github.com/grokify/html-strip-tags-go"
 	client "github.com/micro/go-micro/client"
-	pb "github.com/olesho/spate/subscribe/proto"
+	pb "github.com/olesho/spate/models/subscribe"
 )
 
 type Notifier interface {

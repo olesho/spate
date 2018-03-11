@@ -9,7 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/jinzhu/gorm"
-	pb "github.com/olesho/spate/endpoint/proto"
+	pb "github.com/olesho/spate/models/endpoint"
 )
 
 type Storage struct {

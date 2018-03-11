@@ -10,7 +10,7 @@ import (
 	"strconv"
 
 	"github.com/olesho/auth"
-	pbendpoint "github.com/olesho/spate/endpoint/proto"
+	pbendpoint "github.com/olesho/spate/models/endpoint"
 	"golang.org/x/net/context"
 )
 

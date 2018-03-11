@@ -9,8 +9,8 @@ import (
 
 	micro "github.com/micro/go-micro"
 	"github.com/olesho/auth"
-	pbendpoint "github.com/olesho/spate/endpoint/proto"
-	pbsubscribe "github.com/olesho/spate/subscribe/proto"
+	pbendpoint "github.com/olesho/spate/models/endpoint"
+	pbsubscribe "github.com/olesho/spate/models/subscribe"
 	"golang.org/x/net/context"
 )
 
@@ -50,9 +50,6 @@ func main() {
 	http.HandleFunc("/auth/facebook", p.HandleFacebook)
 	http.HandleFunc("/auth/facebook/callback", p.HandleFacebookCallback)
 	http.HandleFunc("/subscribe/firebase", p.Middleware(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Cache-Control", "no-cache, no-store, must-revalidate")
-		w.Header().Add("Expires", "0")
-
 		uidStr := auth.UserIDbyCtx(r.Context())
 		uid, err := strconv.ParseInt(uidStr, 10, 64)
 		if err != nil {
@@ -170,6 +167,7 @@ func main() {
 	http.HandleFunc("/endpoint", p.Middleware(HandleEndpoint))
 	http.Handle("/", p.MiddlewareHandler(&staticHandler{}))
 
+	log.Printf("Listening to %v:%v", host, port)
 	err := http.ListenAndServe(host+":"+port, nil)
 	if err != nil {
 		log.Fatal(err)

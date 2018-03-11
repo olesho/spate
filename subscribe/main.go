@@ -8,7 +8,7 @@ import (
 
 	"github.com/boltdb/bolt"
 	micro "github.com/micro/go-micro"
-	pb "github.com/olesho/spate/subscribe/proto"
+	pb "github.com/olesho/spate/models/subscribe"
 )
 
 var db *bolt.DB

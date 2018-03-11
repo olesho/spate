@@ -5,9 +5,9 @@ import (
 	"log"
 
 	micro "github.com/micro/go-micro"
-	pbendpoint "github.com/olesho/spate/endpoint/proto"
+	pbendpoint "github.com/olesho/spate/models/endpoint"
+	pbsubscribe "github.com/olesho/spate/models/subscribe"
 	"github.com/olesho/spate/processors/upwork"
-	pbsubscribe "github.com/olesho/spate/subscribe/proto"
 )
 
 func main() {

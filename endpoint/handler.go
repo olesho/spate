@@ -19,7 +19,7 @@ import (
 	"github.com/bluele/gcache"
 
 	micro "github.com/micro/go-micro"
-	pb "github.com/olesho/spate/endpoint/proto"
+	pb "github.com/olesho/spate/models/endpoint"
 )
 
 type Handler struct {

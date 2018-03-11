@@ -7,7 +7,7 @@ import (
 	"os"
 
 	micro "github.com/micro/go-micro"
-	pb "github.com/olesho/spate/endpoint/proto"
+	pb "github.com/olesho/spate/models/endpoint"
 )
 
 func main() {

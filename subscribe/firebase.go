@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"sync"
 
-	pb "github.com/olesho/spate/subscribe/proto"
+	pb "github.com/olesho/spate/models/subscribe"
 )
 
 type FirebaseProvider struct {
