@@ -50,6 +50,9 @@ func main() {
 	http.HandleFunc("/auth/facebook", p.HandleFacebook)
 	http.HandleFunc("/auth/facebook/callback", p.HandleFacebookCallback)
 	http.HandleFunc("/subscribe/firebase", p.Middleware(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Add("Expires", "0")
+
 		uidStr := auth.UserIDbyCtx(r.Context())
 		uid, err := strconv.ParseInt(uidStr, 10, 64)
 		if err != nil {
