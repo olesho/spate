@@ -18,7 +18,7 @@ func main() {
 
 	srv := micro.NewService(
 		// This name must match the package name given in your protobuf definition
-		micro.Name("go.micro.srv.subscribe"),
+		micro.Name("subscribe"),
 		micro.Version("latest"),
 	)
 	srv.Init()

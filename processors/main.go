@@ -13,15 +13,15 @@ import (
 func main() {
 	srv := micro.NewService(
 		// This name must match the package name given in your protobuf definition
-		micro.Name("go.micro.srv.processor"),
+		micro.Name("processor"),
 		micro.Version("latest"),
 	)
 	srv.Init()
 
-	subscribeClient := pbsubscribe.NewSubscribeServiceClient("go.micro.srv.subscribe", srv.Client())
+	subscribeClient := pbsubscribe.NewSubscribeServiceClient("subscribe", srv.Client())
 
 	micro.RegisterSubscriber("endpoint.data", srv.Server(), &Subscriber{
-		endpointClient: pbendpoint.NewEndpointServiceClient("go.micro.srv.endpoint", srv.Client()),
+		endpointClient: pbendpoint.NewEndpointServiceClient("endpoint", srv.Client()),
 		processors: []EndpointHandler{
 			upwork.NewUpworkProcessor(subscribeClient),
 		},

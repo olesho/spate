@@ -25,11 +25,11 @@ var subscribeClient pbsubscribe.SubscribeServiceClient
 var endpointClient pbendpoint.EndpointServiceClient
 
 func init() {
-	service = micro.NewService(micro.Name("feed.client"))
+	service = micro.NewService(micro.Name("client"))
 	service.Init()
 
-	subscribeClient = pbsubscribe.NewSubscribeServiceClient("go.micro.srv.subscribe", service.Client())
-	endpointClient = pbendpoint.NewEndpointServiceClient("go.micro.srv.endpoint", service.Client())
+	subscribeClient = pbsubscribe.NewSubscribeServiceClient("subscribe", service.Client())
+	endpointClient = pbendpoint.NewEndpointServiceClient("endpoint", service.Client())
 }
 
 func main() {
