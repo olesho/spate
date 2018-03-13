@@ -49,6 +49,7 @@ func (u *Upwork) match(url string) bool {
 
 func (u *Upwork) Handle(uid int64, url string, data []byte) error {
 	if u.match(url) {
+		log.Printf("Handling %v", url)
 		var feed Rss
 		err := xml.Unmarshal(data, &feed)
 		if err != nil {

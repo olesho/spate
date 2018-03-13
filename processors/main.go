@@ -48,7 +48,10 @@ func (sub *Subscriber) Process(ctx context.Context, event *pbendpoint.DataEvent)
 	}
 
 	for _, p := range sub.processors {
-		p.Handle(event.User, event.Url, resp.Data)
+		err := p.Handle(event.User, event.Url, resp.Data)
+		if err != nil {
+			log.Printf("Error handling %v: %v", event.Url, err)
+		}
 	}
 
 	return nil

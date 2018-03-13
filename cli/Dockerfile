@@ -1,6 +1,7 @@
 FROM golang:latest as builder
-RUN go get github.com/olesho/spate/cli
+RUN go get github.com/olesho/spate/models
 WORKDIR /go/src/github.com/olesho/spate/cli
+COPY . .
 RUN go get ./...
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 

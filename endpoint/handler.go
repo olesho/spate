@@ -102,6 +102,8 @@ func (nopCloser) Close() error {
 }
 
 func (h *Handler) request(e *pb.Endpoint) error {
+	//log.Printf("Requesting %v", e.Url)
+
 	reader := bufio.NewReader(strings.NewReader(e.Header))
 	tp := textproto.NewReader(reader)
 
