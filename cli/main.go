@@ -170,8 +170,10 @@ func main() {
 		if err != nil {
 			w.Write([]byte(err.Error() + "\n"))
 		}
-		if respSub.Ok {
-			w.Write([]byte("OK\n"))
+		if respSub != nil {
+			if respSub.Ok {
+				w.Write([]byte("OK\n"))
+			}
 		}
 
 		w.Write([]byte("endpoint status: \n"))
@@ -179,8 +181,10 @@ func main() {
 		if err != nil {
 			w.Write([]byte(err.Error() + "\n"))
 		}
-		if respEndp.Ok {
-			w.Write([]byte("OK\n"))
+		if respEndp != nil {
+			if respEndp.Ok {
+				w.Write([]byte("OK\n"))
+			}
 		}
 	})
 
