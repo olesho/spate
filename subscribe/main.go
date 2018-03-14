@@ -67,3 +67,8 @@ func (s *service) Notify(ctx context.Context, req *pb.Notification, res *pb.Resp
 	res.Ok = true
 	return nil
 }
+
+func (s *service) Status(ctx context.Context, req *pb.EmptySubscription, res *pb.Response) error {
+	res.Ok = true
+	return nil
+}

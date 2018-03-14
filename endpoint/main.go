@@ -182,3 +182,8 @@ func (s *service) Data(ctx context.Context, req *pb.Key, res *pb.Body) error {
 	res.Created = data.Created
 	return nil
 }
+
+func (s *service) Status(ctx context.Context, req *pb.EndpointEmpty, res *pb.Response) error {
+	res.Ok = true
+	return nil
+}

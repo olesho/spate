@@ -13,6 +13,7 @@ service EndpointService {
   rpc Start(EndpointID) returns (Response) {}
   rpc Stop(EndpointID) returns (Response) {}
   rpc Data(Key) returns (Body) {}
+  rpc Status(EndpointEmpty) returns (Response) {}
 }
 
 message Endpoint {
@@ -67,3 +68,5 @@ message DataEvent {
   int64 key = 2;
   string url = 3;
 }
+
+message EndpointEmpty {}

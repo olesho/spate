@@ -8,6 +8,7 @@ service SubscribeService {
   rpc Delete(User) returns (Response) {}
   rpc List(EmptySubscription) returns (SubscriptionsList) {}
   rpc Notify(Notification) returns (Response) {}
+  rpc  Status (EmptySubscription) returns (Response) {}
 }
 
 message Subscription {

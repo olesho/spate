@@ -164,6 +164,26 @@ func main() {
 		w.Write([]byte("Notification sent successfully"))
 	}))
 
+	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("subscribe status: \n"))
+		respSub, err := subscribeClient.Status(context.TODO(), &pbsubscribe.EmptySubscription{})
+		if err != nil {
+			w.Write([]byte(err.Error() + "\n"))
+		}
+		if respSub.Ok {
+			w.Write([]byte("OK\n"))
+		}
+
+		w.Write([]byte("endpoint status: \n"))
+		respEndp, err := endpointClient.Status(context.TODO(), &pbendpoint.EndpointEmpty{})
+		if err != nil {
+			w.Write([]byte(err.Error() + "\n"))
+		}
+		if respEndp.Ok {
+			w.Write([]byte("OK\n"))
+		}
+	})
+
 	http.HandleFunc("/endpoint", p.Middleware(HandleEndpoint))
 	http.Handle("/", p.MiddlewareHandler(&staticHandler{}))
 
