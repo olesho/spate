@@ -1,5 +1,8 @@
 version: "3"
 services:
+  spate:
+    build: .
+    image: spate:latest
   cli:
     build: ./cli
     environment:
@@ -13,6 +16,8 @@ services:
       - DOMAIN
     ports:
       - 3000:3000
+    depends_on:
+      - spate
   endpoint:
     build: ./endpoint
     environment:

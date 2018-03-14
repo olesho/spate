@@ -1,8 +1,6 @@
-FROM golang:latest as builder
-RUN go get github.com/olesho/spate/models
+FROM spate:latest as builder
 WORKDIR /go/src/github.com/olesho/spate/endpoint
 COPY . .
-RUN go get ./...
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
 FROM alpine:latest
@@ -12,4 +10,3 @@ WORKDIR /app
 COPY --from=builder /go/src/github.com/olesho/spate/endpoint .
 EXPOSE 3000
 CMD ["./endpoint"]
-
