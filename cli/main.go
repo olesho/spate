@@ -126,12 +126,12 @@ func main() {
 	http.HandleFunc("/subscription/list", p.Middleware(func(w http.ResponseWriter, r *http.Request) {
 		resp, err := subscribeClient.List(context.TODO(), &pbsubscribe.EmptySubscription{})
 		if err != nil {
-			log.Printf("Unable to get subscriptions list", err)
+			log.Printf("Unable to get subscriptions list: %v", err)
 			w.WriteHeader(502)
 			return
 		}
 		if !resp.Response.Ok {
-			log.Printf("Unable to get subscriptions list", resp.Response.Error)
+			log.Printf("Unable to get subscriptions list: %v", resp.Response.Error)
 			w.WriteHeader(502)
 			return
 		}
@@ -153,11 +153,11 @@ func main() {
 			Url:    "https://google.com",
 		})
 		if err != nil {
-			log.Printf("Unable to get subscriptions list", err)
+			log.Printf("Unable to get subscriptions list: %v", err)
 			return
 		}
 		if !resp.Ok {
-			log.Printf("Unable to get subscriptions list", resp.Error)
+			log.Printf("Unable to get subscriptions list: %v", resp.Error)
 			return
 		}
 
