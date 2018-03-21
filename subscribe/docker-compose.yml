@@ -1,0 +1,10 @@
+version: "3"
+services:
+  subscribe:
+    build: .
+    environment:
+      - GCM_API_KEY
+networks:
+  default:
+    external:
+      name: host
