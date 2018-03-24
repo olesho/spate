@@ -8,19 +8,31 @@ import (
 
 	"github.com/boltdb/bolt"
 	micro "github.com/micro/go-micro"
+	"github.com/micro/go-micro/server"
 	pb "github.com/olesho/spate/models/subscribe"
 )
 
 var db *bolt.DB
 
+func Advertise(a string) server.Option {
+	return func(o *server.Options) {
+		o.Advertise = a
+	}
+}
+
 func main() {
 	subscriptionProvider := NewFirebaseProvider(os.Getenv("GCM_API_KEY"))
 
-	srv := micro.NewService(
-		// This name must match the package name given in your protobuf definition
-		micro.Name("subscribe"),
-		micro.Version("latest"),
+	s := server.NewServer(
+		server.Name("subscribe"),
+		server.Version("latest"),
+		Advertise(os.Getenv("ADVERTISE")),
 	)
+
+	srv := micro.NewService(
+		micro.Server(s),
+	)
+
 	srv.Init()
 	pb.RegisterSubscribeServiceHandler(srv.Server(), &service{subscriptionProvider})
 	if err := srv.Run(); err != nil {
