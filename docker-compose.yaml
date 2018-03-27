@@ -3,25 +3,28 @@ services:
   spate:
     build: .
     image: spate:latest
-  cli:
-    build: ./cli
-    environment:
-      - MICRO_REGISTRY
-      - HOST
-      - PORT
-      - SECURE
-      - FB_CALLBACK_URL
-      - FB_ID
-      - FB_SECRET
-      - DOMAIN
-    ports:
-      - 3000:3000
-    depends_on:
-      - spate
+  # cli:
+  #   build: $GOPATH/src/github.com/olesho/spate/cli
+  #   environment:
+  #     - MICRO_REGISTRY
+  #     - HOST
+  #     - PORT
+  #     - SECURE
+  #     - FB_CALLBACK_URL
+  #     - FB_ID
+  #     - FB_SECRET
+  #     - DOMAIN
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - spate
   endpoint:
-    build: ./endpoint
+    build: $GOPATH/src/github.com/olesho/spate/endpoint
     environment:
       - MICRO_REGISTRY
+      - MICRO_REGISTRY_ADDRESS
+      - MICRO_SERVER_ADDRESS=:9999
+      - MICRO_SERVER_ADVERTISE=10.8.0.10:9999
       - DB_HOST
       - DB_PORT
       - MYSQL_DATABASE
@@ -31,15 +34,30 @@ services:
       - mysql
     links:
       - mysql
+    ports:
+      - "9999:9999"
+    network_mode: bridge
   processors:
-    build: ./processors
+    build: $GOPATH/src/github.com/olesho/spate/processors
     environment:
       - MICRO_REGISTRY
+      - MICRO_REGISTRY_ADDRESS
+      - MICRO_SERVER_ADDRESS=:9998
+      - MICRO_SERVER_ADVERTISE=10.8.0.10:9997
+    ports:
+      - "9998:9998"
+    network_mode: bridge
   subscribe:
-    build: ./subscribe
+    build: $GOPATH/src/github.com/olesho/spate/subscribe
     environment:
-      - MICRO_REGISTRY
       - GCM_API_KEY
+      - MICRO_REGISTRY
+      - MICRO_REGISTRY_ADDRESS
+      - MICRO_SERVER_ADDRESS=:9997
+      - MICRO_SERVER_ADVERTISE=10.8.0.10:9997
+    ports:
+      - "9997:9997"
+    network_mode: bridge
   mysql:
     image: mysql:5.7
     environment:
@@ -47,9 +65,10 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
-#    volumes:
-#      - "mysql_data:/var/lib/mysql" # data container
+    volumes:
+      - "mysql_data:/var/lib/mysql" # data container
     restart: always
+    network_mode: bridge
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
@@ -60,7 +79,8 @@ services:
       PMA_USER: root
       PMA_PASSWORD: kotyczky
       PMA_HOST: mysql
+    network_mode: bridge
 
-#volumes:
-#  mysql_data:
-#    driver: local
+volumes:
+ mysql_data:
+   driver: local
